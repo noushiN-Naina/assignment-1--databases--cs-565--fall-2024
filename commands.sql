@@ -19,6 +19,9 @@ FROM StoreAddresses
 WHERE physical_address IS NOT NULL;
 
 -- Get spices whose names are also brands. For example, Fresh Direct is a store that also makes spices.
+SELECT spice_name, brand 
+FROM spices 
+WHERE brand IS NOT NULL AND spice_name = brand;
 
 -- Get spices whose names contain “cinnamon”.
 SELECT * 
@@ -26,3 +29,8 @@ FROM spices
 WHERE spice_name LIKE '%cinnamon%';
 
 -- Get the brand name of the Sumac spice and the name and URL of the store where it was purchased.
+SELECT s.brand, sa.store_name, sa.url_address
+FROM SpicePurchases sp
+JOIN StoreAddresses sa ON sp.store_id = sa.store_id
+JOIN Spices s ON sp.spice_name = s.spice_name
+WHERE sp.spice_name = 'Sumac';
